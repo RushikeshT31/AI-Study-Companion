@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Achievements | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="brand"
+       href="{{ url_for('dashboard') }}">
+
+        🤖 AI Study Companion
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('quiz') }}">
+            Quiz
+        </a>
+
+        <a href="{{ url_for('timer') }}">
+            Timer
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="tool-page">
+
+
+    <!-- HEADING -->
+
+    <div class="page-heading">
+
+        <span class="eyebrow">
+            YOUR PROGRESS
+        </span>
+
+        <h1>
+            🏆 Achievements
+        </h1>
+
+        <p>
+            Unlock badges by studying and completing quizzes.
+        </p>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="stats-grid small-stats">
+
+
+        <div class="stat-card">
+
+            <span>🧠</span>
+
+            <div>
+
+                <strong>
+                    {{ quiz_count }}
+                </strong>
+
+                <small>
+                    Quizzes Completed
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>⏱️</span>
+
+            <div>
+
+                <strong>
+                    {{ study_minutes }}
+                </strong>
+
+                <small>
+                    Study Minutes
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>🏆</span>
+
+            <div>
+
+                <strong>
+                    {{ achievements|selectattr("unlocked")|list|length }}
+                </strong>
+
+                <small>
+                    Badges Unlocked
+                </small>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ================= ACHIEVEMENTS ================= -->
+
+    <section class="achievement-grid">
+
+
+        {% for item in achievements %}
+
+
+        {% if item.unlocked %}
+
+        <!-- UNLOCKED -->
+
+        <article class="achievement-card unlocked-card">
+
+            <div class="achievement-icon">
+
+                {{ item.icon }}
+
+            </div>
+
+
+            <h2>
+
+                {{ item.name }}
+
+            </h2>
+
+
+            <p>
+
+                {{ item.description }}
+
+            </p>
+
+
+            <span class="unlocked">
+
+                ✓ Unlocked
+
+            </span>
+
+        </article>
+
+
+        {% else %}
+
+        <!-- LOCKED -->
+
+        <article class="achievement-card locked-card">
+
+            <div class="achievement-icon">
+
+                🔒
+
+            </div>
+
+
+            <h2>
+
+                {{ item.name }}
+
+            </h2>
+
+
+            <p>
+
+                {{ item.description }}
+
+            </p>
+
+
+            <span class="locked">
+
+                🔒 Locked
+
+            </span>
+
+        </article>
+
+
+        {% endif %}
+
+
+        {% endfor %}
+
+
+    </section>
+
+
+    <!-- ================= ACTION ================= -->
+
+    <div class="achievement-actions">
+
+        <a
+            class="btn primary"
+            href="{{ url_for('quiz') }}">
+
+            🧠 Take Quiz
+
+        </a>
+
+
+        <a
+            class="btn secondary"
+            href="{{ url_for('timer') }}">
+
+            ⏱️ Start Study Timer
+
+        </a>
+
+    </div>
+
+</main>
+</body>
+</html>
