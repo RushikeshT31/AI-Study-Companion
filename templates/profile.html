@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <b>AI Study Companion</b>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('profile') }}">
+            👤 My Profile
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="nav-button">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<section class="profile-container">
+
+    <div class="profile-card">
+
+
+        <!-- =================================================
+             PROFILE HEADER
+        ================================================= -->
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+                👨‍💻
+            </div>
+
+            <h1>
+                {{ user["name"] }}
+            </h1>
+
+            <p>
+                {{ user["email"] }}
+            </p>
+
+            <span class="profile-role">
+                🎓 Computer Engineering Student
+            </span>
+
+        </div>
+
+
+        <!-- =================================================
+             ABOUT ME / BIO
+        ================================================= -->
+
+        <div class="profile-section">
+
+            <h2>👋 About Me</h2>
+
+            <p>
+                {{ user["bio"] or "I am a Computer Engineering student interested in Full Stack Python Development, Web Development, Artificial Intelligence and Software Development." }}
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             PERSONAL INFORMATION
+        ================================================= -->
+
+        <div class="profile-section">
+
+            <h2>📋 Personal Information</h2>
+
+            <div class="profile-info">
+
+
+                <!-- FULL NAME -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        👤 Full Name
+                    </span>
+
+                    <span class="profile-value">
+                        {{ user["name"] }}
+                    </span>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        📧 Email
+                    </span>
+
+                    <span class="profile-value">
+                        {{ user["email"] }}
+                    </span>
+
+                </div>
+
+
+                <!-- COLLEGE -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        🎓 College Name
+                    </span>
+
+                    <span class="profile-value">
+                        {{ user["college"] or "Not Added" }}
+                    </span>
+
+                </div>
+
+
+                <!-- BRANCH -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        💻 Branch
+                    </span>
+
+                    <span class="profile-value">
+                        {{ user["branch"] or "Not Added" }}
+                    </span>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        📍 Address
+                    </span>
+
+                    <span class="profile-value">
+                        {{ user["address"] or "Not Added" }}
+                    </span>
+
+                </div>
+
+
+                <!-- USER ID -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        🆔 User ID
+                    </span>
+
+                    <span class="profile-value">
+                        #{{ user["id"] }}
+                    </span>
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        🎓 Role
+                    </span>
+
+                    <span class="profile-value">
+                        Student
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SKILLS
+        ================================================= -->
+
+        <div class="profile-section">
+
+            <h2>🛠️ Skills & Interests</h2>
+
+            <div class="skills-container">
+
+                <span class="skill">
+                    Python
+                </span>
+
+                <span class="skill">
+                    Flask
+                </span>
+
+                <span class="skill">
+                    HTML
+                </span>
+
+                <span class="skill">
+                    CSS
+                </span>
+
+                <span class="skill">
+                    JavaScript
+                </span>
+
+                <span class="skill">
+                    SQLite
+                </span>
+
+                <span class="skill">
+                    AI
+                </span>
+
+                <span class="skill">
+                    Web Development
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             QUIZ STATISTICS
+        ================================================= -->
+
+        <div class="profile-section">
+
+            <h2>📊 Learning Statistics</h2>
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        {{ total_quizzes }}
+                    </h3>
+
+                    <p>
+                        Quizzes Completed
+                    </p>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        {{ average_score }}%
+                    </h3>
+
+                    <p>
+                        Average Score
+                    </p>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🏆
+                    </div>
+
+                    <h3>
+                        {{ best_percentage }}%
+                    </h3>
+
+                    <p>
+                        Best Score
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LEARNING PROGRESS
+        ================================================= -->
+
+        <div class="profile-section">
+
+            <h2>📚 Learning Progress</h2>
+
+            <div class="progress-box">
+
+                <div class="progress-text">
+
+                    <span>
+                        Overall Quiz Performance
+                    </span>
+
+                    <strong>
+                        {{ average_score }}%
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"
+                         style="width: {{ average_score }}%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             EDIT PROFILE BUTTON
+        ================================================= -->
+
+        <div class="profile-actions">
+
+            <a href="{{ url_for('edit_profile') }}"
+               class="profile-btn">
+
+                ✏️ Edit Profile
+
+            </a>
+
+            <a href="{{ url_for('dashboard') }}"
+               class="profile-btn">
+
+                ← Dashboard
+
+            </a>
+
+            <a href="{{ url_for('achievements') }}"
+               class="profile-btn achievement-btn">
+
+                🏆 Achievements
+
+            </a>
+
+            <a href="{{ url_for('logout') }}"
+               class="profile-btn logout-btn">
+
+                🚪 Logout
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 AI Study Companion
+    </p>
+
+    <p>
+        Learn • Practice • Improve • Grow
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

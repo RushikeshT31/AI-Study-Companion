@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Study Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-body">
+<nav class="navbar">
+    <a class="brand" href="/">🤖 AI Study Companion</a>
+    <div class="nav-links"><a href="/">Home</a><a href="/register">Create Account</a></div>
+</nav>
+
+<main class="auth-page">
+    <div class="auth-card">
+        <div class="auth-icon">🔐</div>
+        <h1>Welcome Back</h1>
+        <p>Login to continue your learning journey.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+
+            <button class="btn primary full" type="submit">Login →</button>
+        </form>
+
+        <p class="auth-bottom">Don't have an account? <a href="/register">Create Account</a></p>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Timer</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar"><a class="brand" href="/dashboard">🤖 AI Study Companion</a><div class="nav-links"><a href="/dashboard">Dashboard</a><a href="/achievements">Achievements</a><a href="/logout">Logout</a></div></nav>
+<main class="tool-page">
+    <div class="page-heading"><span class="eyebrow">FOCUS TOOL</span><h1>⏱️ Study Timer</h1><p>Focus on a session and save completed study time.</p></div>
+    <section class="timer-card">
+        <div id="timerDisplay" class="timer-display">25:00</div>
+        <div class="timer-presets">
+            <button onclick="setTimer(5)">5 min</button>
+            <button onclick="setTimer(15)">15 min</button>
+            <button onclick="setTimer(25)">25 min</button>
+            <button onclick="setTimer(50)">50 min</button>
+            <button onclick="setTimer(60)">60 min</button>
+
+        </div>
+        <div class="controls center">
+            <button class="btn success" onclick="startTimer()">▶ Start</button>
+            <button class="btn warning" onclick="pauseTimer()">⏸ Pause</button>
+            <button class="btn danger" onclick="resetTimer()">🔄 Reset</button>
+        </div>
+        <p id="timerStatus" class="muted">Ready to study 📚</p>
+        <p id="timerStatus" class="muted">Take break after every 1 hr 📚</p>
+        <p id="timerStatus" class="muted">   🚀 Let's get started! You've got this</p>
+        <p id="timerStatus" class="muted">  🍁 Take a break after every 1 hr</p>
+        <p id="timerStatus" class="muted">✨ Small sessions create big results</p>
+        <p id="timerStatus" class="muted">🏆 One more step toward your goal!</p>
+        <p id="timerStatus" class="muted">💪 You're doing great. Keep pushing!</p>
+
+    </section>
+</main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

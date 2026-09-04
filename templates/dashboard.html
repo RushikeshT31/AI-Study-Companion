@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<!-- =========================================================
+     NAVIGATION BAR
+========================================================= -->
+
+<nav class="navbar">
+    <a class="brand" href="/dashboard">
+        <span class="brand-icon">🤖</span>
+        <span>AI Study Companion</span>
+    </a>
+    <div class="nav-links">
+
+        <a class="active" href="/dashboard">
+            Dashboard
+        </a>
+        <a href="/summary">
+            Summary
+        </a>
+        <a href="/mcq">
+            MCQ
+        </a>
+        <a href="/quiz">
+            Quiz
+        </a>
+        <a href="/timer">
+            Timer
+        </a>
+        <a href="/achievements">
+            Achievements
+        </a>
+        <a href="{{ url_for('profile') }}">
+            👤 My Profile
+        </a>
+        <a class="logout" href="/logout">
+            Logout
+        </a>
+    </div>
+</nav>
+
+<!-- =========================================================
+     MAIN DASHBOARD
+========================================================= -->
+
+<main class="dashboard-page">
+    <!-- =====================================================
+         SECTION 1 : WELCOME / HERO
+    ====================================================== -->
+
+    <section class="dashboard-welcome">
+
+        <div class="welcome-content">
+
+            <span class="eyebrow">
+                ✨ YOUR PERSONAL LEARNING SPACE
+            </span>
+
+            <h1>
+                Welcome,
+                <span>{{ user_name }}</span> 👋
+            </h1>
+
+            <p>
+                Learn smarter, practice better and achieve your
+                academic goals with your AI-powered study companion.
+            </p>
+
+            <div class="welcome-actions">
+
+                <a href="/summary" class="primary-btn">
+                    🚀 Start Learning
+                </a>
+
+                <a href="/quiz" class="secondary-btn">
+                    🧠 Take a Quiz
+                </a>
+            </div>
+        </div>
+        <div class="welcome-badge">
+            <div class="badge-icon">
+               🎓
+            </div>
+            <strong>
+                Keep Learning
+            </strong>
+            <small>
+                Your progress matters!
+            </small>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         SECTION 2 : QUICK STATISTICS
+    ====================================================== -->
+    <section class="dashboard-section stats-section">
+        <div class="section-heading">
+            <span class="eyebrow">
+                📊 YOUR PROGRESS
+            </span>
+            <h2>
+                Learning Overview
+            </h2>
+            <p>
+                A quick look at your study activity.
+            </p>
+
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    🤖
+                </div>
+                <div class="stat-content">
+                    <strong>
+                        8
+                    </strong>
+                    <small>
+                        Study Tools
+                    </small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    🧠
+                </div>
+                <div class="stat-content">
+                    <strong>
+                        {{ quiz_count }}
+                    </strong>
+                    <small>
+                        Quizzes Taken
+                    </small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    📈
+                </div>
+                <div class="stat-content">
+                    <strong>
+                        {{ best_score }}%
+                    </strong>
+                    <small>
+                        Best Score
+                    </small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    ⏱️
+                </div>
+                <div class="stat-content">
+                    <strong>
+                        {{ study_minutes }}
+                    </strong>
+                    <small>
+                        Study Minutes
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =====================================================
+         SECTION 3 : CONTINUE LEARNING
+    ====================================================== -->
+
+    <section class="dashboard-section continue-section">
+        <div class="section-heading">
+            <span class="eyebrow">
+                📚 CONTINUE LEARNING
+            </span>
+            <h2>
+                Pick Up Where You Left Off
+            </h2>
+            <p>
+                Continue your learning journey with one of these activities.
+            </p>
+        </div>
+        <div class="continue-grid">
+            <article class="continue-card">
+                <div class="continue-icon">
+                    📝
+                </div>
+                <div>
+                    <span class="card-label">
+                        REVISION
+                    </span>
+
+                    <h3>
+                        Create Quick Notes
+                    </h3>
+
+                    <p>
+                        Convert lengthy study material into
+                        simple revision notes.
+                    </p>
+                    <a href="/summary">
+                        Continue Revision →
+                    </a>
+                </div>
+            </article>
+            <article class="continue-card">
+                <div class="continue-icon">
+                    🧠
+                </div>
+                <div>
+                    <span class="card-label">
+                        PRACTICE
+                    </span>
+                    <h3>
+                        Test Your Knowledge
+                    </h3>
+                    <p>
+                        Challenge yourself with an interactive
+                        AI-generated quiz.
+                    </p>
+                    <a href="/quiz">
+                        Start Practice →
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- =====================================================
+         SECTION 4 : AI STUDY TOOLS
+    ====================================================== -->
+
+    <section class="dashboard-section tools-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                🤖 AI POWERED
+            </span>
+
+            <h2>
+                Smart Study Tools
+            </h2>
+
+            <p>
+                Powerful tools designed to make studying easier and faster.
+            </p>
+
+        </div>
+        <div class="tools-grid">
+
+
+            <!-- SUMMARY -->
+
+            <article class="tool-card">
+
+                <div class="tool-icon">
+                    📝
+                </div>
+
+                <div class="tool-number">
+                    01
+                </div>
+
+                <h3>
+                    AI Summary
+                </h3>
+
+                <p>
+                    Turn long study material into short,
+                    clear and easy-to-revise notes.
+                </p>
+
+                <a href="/summary">
+                    Open Summary →
+                </a>
+
+            </article>
+
+
+            <!-- MCQ -->
+
+            <article class="tool-card">
+
+                <div class="tool-icon">
+                    ❓
+                </div>
+
+                <div class="tool-number">
+                    02
+                </div>
+
+                <h3>
+                    MCQ Generator
+                </h3>
+
+                <p>
+                    Generate topic-based multiple-choice
+                    questions for exam preparation.
+                </p>
+
+                <a href="/mcq">
+                    Generate MCQs →
+                </a>
+
+            </article>
+
+
+            <!-- QUIZ -->
+
+            <article class="tool-card">
+
+                <div class="tool-icon">
+                    🧠
+                </div>
+
+                <div class="tool-number">
+                    03
+                </div>
+
+                <h3>
+                    Study Quiz
+                </h3>
+
+                <p>
+                    Take interactive quizzes and instantly
+                    check your knowledge and score.
+                </p>
+
+                <a href="/quiz">
+                    Start Quiz →
+                </a>
+
+            </article>
+
+
+            <!-- TRANSLATE -->
+
+            <article class="tool-card">
+
+                <div class="tool-icon">
+                    🌐
+                </div>
+
+                <div class="tool-number">
+                    04
+                </div>
+
+                <h3>
+                    Smart Translate
+                </h3>
+
+                <p>
+                    Translate your study material into
+                    your preferred language.
+                </p>
+
+                <a href="/translate">
+                    Translate →
+                </a>
+
+            </article>
+
+
+            <!-- EXPLAIN -->
+
+            <article class="tool-card">
+
+                <div class="tool-icon">
+                    💡
+                </div>
+
+                <div class="tool-number">
+                    05
+                </div>
+
+                <h3>
+                    Explain Any Topic
+                </h3>
+
+                <p>
+                    Understand difficult concepts using
+                    simple AI-powered explanations.
+                </p>
+
+                <a href="/explain">
+                    Explain Topic →
+                </a>
+
+            </article>
+
+
+            <!-- READ ALOUD -->
+
+            <article class="tool-card">
+
+                <div class="tool-icon">
+                    🔊
+                </div>
+
+                <div class="tool-number">
+                    06
+                </div>
+
+                <h3>
+                    Read Aloud
+                </h3>
+
+                <p>
+                    Listen to your notes using
+                    browser text-to-speech.
+                </p>
+
+                <a href="/read-aloud">
+                    Read Aloud →
+                </a>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         SECTION 5 : PRACTICE & ASSESSMENT
+    ====================================================== -->
+
+    <section class="dashboard-section practice-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                🎯 PRACTICE & ASSESSMENT
+            </span>
+
+            <h2>
+                Improve Your Knowledge
+            </h2>
+
+            <p>
+                Practice regularly and measure your improvement.
+            </p>
+
+        </div>
+
+
+        <div class="practice-grid">
+
+
+            <article class="practice-card">
+
+                <div class="practice-icon">
+                    🧠
+                </div>
+
+                <div>
+
+                    <h3>
+                        Quiz Challenge
+                    </h3>
+
+                    <p>
+                        Test your knowledge and try to beat
+                        your previous score.
+                    </p>
+
+                    <a href="/quiz">
+                        Challenge Yourself →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="practice-card">
+
+                <div class="practice-icon">
+                    ❓
+                </div>
+
+                <div>
+                    <h3>
+                        Practice MCQs
+                    </h3>
+
+                    <p>
+                        Generate unlimited practice questions
+                        from your study topics.
+                    </p>
+
+                    <a href="/mcq">
+                        Practice MCQs →
+                    </a>
+
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- =====================================================
+         SECTION 6 : PRODUCTIVITY
+    ====================================================== -->
+
+    <section class="dashboard-section productivity-section">
+        <div class="section-heading">
+            <span class="eyebrow">
+                ⏱️ PRODUCTIVITY
+            </span>
+            <h2>
+                Focus Better
+            </h2>
+            <p>
+                Build a consistent study routine and stay focused.
+            </p>
+        </div>
+        <div class="productivity-card">
+            <div class="productivity-icon">
+                ⏱️
+            </div>
+            <div class="productivity-content">
+                <span class="card-label">
+                    STUDY SESSION
+                </span>
+                <h3>
+                    Focus Timer
+                </h3>
+                <p>
+                    Use focused study sessions to manage your
+                    time and record your study activity.
+                </p>
+
+                <a href="/timer" class="primary-btn">
+                    Start Study Timer →
+                </a>
+            </div>
+            <div class="productivity-stat">
+                <strong>
+                    {{ study_minutes }}
+                </strong>
+                <span>
+                    Minutes Studied
+                </span>
+
+            </div>
+        </div>
+    </section>
+    <!-- =====================================================
+         SECTION 7 : ACHIEVEMENTS
+    ====================================================== -->
+    <section class="dashboard-section achievements-section">
+        <div class="section-heading">
+            <span class="eyebrow">
+                🏆 ACHIEVEMENTS
+            </span>
+            <h2>
+                Celebrate Your Progress
+            </h2>
+            <p>
+                Keep studying to unlock new achievements and badges.
+            </p>
+        </div>
+        <div class="achievement-preview">
+            <div class="achievement-item">
+                <div class="achievement-icon">
+                    🥇
+                </div>
+                <div>
+                    <h3>
+                        Quiz Master
+                    </h3>
+                    <p>
+                        Complete multiple quizzes.
+                    </p>
+                </div>
+            </div>
+            <div class="achievement-item">
+
+                <div class="achievement-icon">
+                    🔥
+                </div>
+                <div>
+                    <h3>
+                        Study Streak
+                    </h3>
+                    <p>
+                        Maintain a regular study routine.
+                    </p>
+                </div>
+            </div>
+            <div class="achievement-item">
+                <div class="achievement-icon">
+                    📚
+                </div>
+                <div>
+                    <h3>
+                        Knowledge Builder
+                    </h3>
+                    <p>
+                        Keep learning new topics.
+                    </p>
+                </div>
+            </div>
+            <a href="/achievements" class="achievement-button">
+                View All Achievements →
+            </a>
+        </div>
+    </section>
+    <!-- =====================================================
+         SECTION 8 : STUDY TIP
+    ====================================================== -->
+
+    <section class="dashboard-section study-tip-section">
+        <div class="study-tip">
+            <div class="tip-icon">
+                💡
+            </div>
+            <div class="tip-content">
+                <span class="eyebrow">
+                    TODAY'S STUDY TIP
+                </span>
+                <h2>
+                    Study Smart, Not Just Hard
+                </h2>
+                <p>
+                    Break large topics into smaller sections,
+                    practice regularly and revise what you learn.
+                </p>
+            </div>
+        </div>
+
+    </section>
+    <!-- =====================================================
+         SECTION 9 : MOTIVATION
+    ====================================================== -->
+    <section class="motivation">
+        <div class="motivation-icon">
+           🎯
+        </div>
+        <div class="motivation-content">
+            <span class="eyebrow">
+                KEEP GOING
+            </span>
+            <h2>
+                Keep Learning, Keep Growing!
+            </h2>
+            <p>
+                Every quiz, every revision and every study session
+                takes you one step closer to your goal.
+            </p>
+
+        </div>
+        <a href="/quiz" class="motivation-button">
+            Start Learning 🚀
+        </a>
+
+    </section>
+</main>
+</body>
+</html>

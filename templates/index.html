@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="brand" href="/">🤖 AI Study Companion</a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a class="nav-cta" href="/register">Create Account</a>
+    </div>
+</nav>
+
+<main class="hero">
+    <div class="hero-content">
+        <h1>Study Smarter with <span>AI</span></h1>
+                <h3> Studysmart for 31 minutes , improve 31 times, and never stop learning </h3>
+        <p>Summarize notes, generate MCQs, take quizzes, translate content, listen to notes, understand topics, manage study time and earn achievements.</p>
+        <div class="hero-actions">
+            <a class="btn primary" href="/register">Get Started →</a>
+            <a class="btn secondary" href="/login">Login</a>
+        </div>
+    </div>
+
+    <div class="hero-panel">
+        <div class="hero-panel-icon">🧠</div>
+        <h2>Your Personal Study Space</h2>
+        <div class="mini-grid">
+            <span>📝 Summary</span>
+            <span>❓ MCQ</span>
+            <span>🧠 Quiz</span>
+            <span>🌐 Translate</span>
+            <span>🔊 Read Aloud</span>
+            <span>💡 Explain</span>
+            <span>⏱️ Timer</span>
+            <span>🏆 Achievements</span>
+        </div>
+    </div>
+</main>
+</body>
+</html>

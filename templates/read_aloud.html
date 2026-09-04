@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Read Aloud | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="brand"
+       href="{{ url_for('dashboard') }}">
+
+        🤖 AI Study Companion
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('achievements') }}">
+            Achievements
+        </a>
+
+        <a href="{{ url_for('timer') }}">
+            Timer
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="tool-page">
+
+
+    <div class="page-heading">
+
+        <span class="eyebrow">
+            JAVASCRIPT TOOL
+        </span>
+
+        <h1>
+            🔊 Read Aloud
+        </h1>
+
+        <p>
+            Listen to your study material with browser text-to-speech.
+        </p>
+
+    </div>
+
+
+    <!-- ================= READ ALOUD PANEL ================= -->
+
+    <section class="panel read-panel">
+
+
+        <h2>
+            📖 Study Material
+        </h2>
+
+
+        <textarea
+            id="readText"
+            placeholder="Enter or paste your study material here..."
+        ></textarea>
+
+
+        <!-- ================= CONTROLS ================= -->
+
+        <div class="controls">
+
+
+            <button
+                class="btn primary"
+                type="button"
+                onclick="readText()">
+
+                ▶ Read Aloud
+
+            </button>
+
+
+            <button
+                class="btn warning"
+                type="button"
+                onclick="pauseText()">
+
+                ⏸ Pause
+
+            </button>
+
+
+            <button
+                class="btn success"
+                type="button"
+                onclick="resumeText()">
+
+                ▶ Resume
+
+            </button>
+
+
+            <button
+                class="btn danger"
+                type="button"
+                onclick="stopText()">
+
+                ⏹ Stop
+
+            </button>
+
+
+        </div>
+
+
+        <!-- ================= SPEED ================= -->
+
+        <div class="speed-control">
+
+            <label for="speed">
+
+                🔊 Reading Speed
+
+            </label>
+
+
+            <input
+                type="range"
+                id="speed"
+                min="0.5"
+                max="2"
+                value="1"
+                step="0.1"
+            >
+
+
+            <p class="muted">
+
+                Speed:
+                <span id="speedValue">
+                    1x
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <!-- ================= STATUS ================= -->
+
+        <div
+            id="speechStatus"
+            class="speech-status">
+
+            Ready to read 📖
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Result | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="brand"
+       href="{{ url_for('dashboard') }}">
+
+        🤖 AI Study Companion
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('achievements') }}">
+            Achievements
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= RESULT ================= -->
+
+<main class="result-page">
+
+    <section class="result-card">
+
+
+        <!-- ICON -->
+
+        <div class="result-icon">
+
+            {% if score == total %}
+
+                🏆
+
+            {% elif score >= total / 2 %}
+
+                🎉
+
+            {% else %}
+
+                📚
+
+            {% endif %}
+
+        </div>
+
+
+        <span class="eyebrow">
+            QUIZ COMPLETED
+        </span>
+
+
+        <h1>
+            Your Score
+        </h1>
+
+
+        <!-- SCORE -->
+
+        <div class="score">
+
+            {{ score }} / {{ total }}
+
+        </div>
+
+
+        <!-- PERCENTAGE -->
+
+        <div class="percentage">
+
+            {% if total > 0 %}
+
+                {{ ((score / total) * 100)|round|int }}%
+
+            {% else %}
+
+                0%
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <p>
+
+            {% if score == total %}
+
+                Perfect Score! Excellent work! 💯
+
+            {% elif score >= total / 2 %}
+
+                Good job! Keep improving. 👍
+
+            {% else %}
+
+                Keep practicing. You can do better! 💪
+
+            {% endif %}
+
+        </p>
+
+
+        <!-- RESULT INFO -->
+
+        <div class="result-stats">
+
+            <div class="result-stat">
+
+                <span>
+                    Correct Answers
+                </span>
+
+                <strong>
+                    {{ score }}
+                </strong>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <span>
+                    Total Questions
+                </span>
+
+                <strong>
+                    {{ total }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="hero-actions center">
+
+
+            <a
+                class="btn primary"
+                href="{{ url_for('quiz') }}">
+
+                🔄 Try Again
+
+            </a>
+
+
+            <a
+                class="btn secondary"
+                href="{{ url_for('dashboard') }}">
+
+                🏠 Dashboard
+
+            </a>
+
+
+            <a
+                class="btn secondary"
+                href="{{ url_for('achievements') }}">
+
+                🏆 Achievements
+
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+</body>
+
+</html>

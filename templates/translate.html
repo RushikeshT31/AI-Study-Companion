@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Translate | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="brand"
+       href="{{ url_for('dashboard') }}">
+
+        🤖 AI Study Companion
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('achievements') }}">
+            Achievements
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="tool-page">
+
+
+    <!-- HEADING -->
+
+    <div class="page-heading">
+
+        <span class="eyebrow">
+            AI TOOL
+        </span>
+
+        <h1>
+            🌐 Translate
+        </h1>
+
+        <p>
+            Translate your study material into another language.
+        </p>
+
+    </div>
+
+
+    <!-- ================= TWO COLUMN ================= -->
+
+    <div class="two-column">
+
+
+        <!-- ================= ORIGINAL ================= -->
+
+        <section class="panel">
+
+            <h2>
+                📝 Original Text
+            </h2>
+
+
+            <form method="POST">
+
+
+                <textarea
+                    name="text"
+                    placeholder="Enter your study material here..."
+                    required
+                >{{ original_text or '' }}</textarea>
+
+
+                <!-- LANGUAGE -->
+
+                <label class="input-label">
+
+                    Select Language
+
+                </label>
+
+
+                <select
+                    name="language"
+                    required
+                >
+
+                    <option
+                        value="English"
+                        {% if selected_language == "English" %}
+                            selected
+                        {% endif %}
+                    >
+                        English
+                    </option>
+
+
+                    <option
+                        value="Hindi"
+                        {% if selected_language == "Hindi" %}
+                            selected
+                        {% endif %}
+                    >
+                        Hindi
+                    </option>
+
+
+                    <option
+                        value="Marathi"
+                        {% if selected_language == "Marathi" %}
+                            selected
+                        {% endif %}
+                    >
+                        Marathi
+                    </option>
+
+                </select>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    class="btn primary"
+                    type="submit"
+                >
+
+                    🌐 Translate
+
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- ================= RESULT ================= -->
+
+        <section class="panel result-panel">
+
+            <h2>
+                🌐 Translation Result
+            </h2>
+
+
+            {% if translated_text %}
+
+
+                <div class="result-text">
+
+                    {{ translated_text }}
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🌐
+                    </div>
+
+                    <p>
+                        Translation will appear here.
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

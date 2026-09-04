@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Study Quiz | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="brand"
+       href="{{ url_for('dashboard') }}">
+
+        🤖 AI Study Companion
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('achievements') }}">
+            Achievements
+        </a>
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="tool-page">
+
+    <div class="page-heading">
+
+        <span class="eyebrow">
+            PRACTICE
+        </span>
+
+        <h1>
+            🧠 Study Quiz
+        </h1>
+
+        <p>
+            Answer all questions and check your score with our friendly AI.
+        </p>
+
+    </div>
+
+
+    <!-- ================= QUIZ ================= -->
+
+    <form method="POST"
+          class="quiz-form">
+
+
+        {% for question in questions %}
+
+        {% set question_number = loop.index0 %}
+
+
+        <article class="quiz-card">
+
+            <h3>
+                Question {{ loop.index }}
+            </h3>
+
+
+            <p>
+                {{ question.question }}
+            </p>
+
+
+            <!-- OPTIONS -->
+
+            <div class="option-grid">
+
+
+                {% for option in question.options %}
+
+                <label class="radio-option">
+
+                    <input
+
+                        type="radio"
+
+                        name="question{{ question_number }}"
+
+                        value="{{ option }}"
+
+                        required
+
+                    >
+
+                    <span>
+                        {{ option }}
+                    </span>
+
+                </label>
+
+                {% endfor %}
+
+
+            </div>
+
+        </article>
+
+
+        {% endfor %}
+
+
+        <!-- ================= SUBMIT ================= -->
+
+        <button
+
+            class="btn primary submit-center"
+
+            type="submit">
+
+            🚀 Submit Quiz
+
+        </button>
+    </form>
+</main>
+
+</body>
+
+</html>

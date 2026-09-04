@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Explain Any Topic | AI Study Companion</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="brand"
+       href="{{ url_for('dashboard') }}">
+
+        🤖 AI Study Companion
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('quiz') }}">
+            Quiz
+        </a>
+
+        <a href="{{ url_for('timer') }}">
+            Timer
+        </a>
+
+        <a href="{{ url_for('achievements') }}">
+            Achievements
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="tool-page">
+
+
+    <!-- PAGE HEADING -->
+
+    <div class="page-heading">
+
+        <span class="eyebrow">
+            AI TOOL
+        </span>
+
+        <h1>
+            💡 Explain Any Topic
+        </h1>
+
+        <p>
+            Get a simple explanation, practical example
+            and revision points.
+        </p>
+
+    </div>
+
+
+    <!-- ================= TWO COLUMN ================= -->
+
+    <div class="two-column">
+
+
+        <!-- ================= INPUT PANEL ================= -->
+
+        <section class="panel">
+
+            <h2>
+                📚 Enter Topic
+            </h2>
+
+
+            <form method="POST">
+
+
+                <!-- TOPIC -->
+
+                <label class="input-label"
+                       for="topic">
+
+                    Topic
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="topic"
+                    name="topic"
+                    value="{{ topic or '' }}"
+                    placeholder="Example: Python"
+                    required
+                >
+
+
+                <!-- LEVEL -->
+
+                <label class="input-label"
+                       for="level">
+
+                    Explanation Level
+
+                </label>
+
+
+                <select
+                    id="level"
+                    name="level"
+                    required
+                >
+
+                    <option
+                        value="beginner"
+                        {% if level == "beginner" %}
+                            selected
+                        {% endif %}
+                    >
+                        Beginner
+                    </option>
+
+
+                    <option
+                        value="intermediate"
+                        {% if level == "intermediate" %}
+                            selected
+                        {% endif %}
+                    >
+                        Intermediate
+                    </option>
+
+                </select>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    class="btn primary"
+                    type="submit"
+                >
+
+                    ✨ Explain Topic
+
+                </button>
+
+
+            </form>
+
+
+            <!-- QUICK TOPICS -->
+
+            <div class="quick-topics">
+
+                <p>
+                    Quick Topics
+                </p>
+
+
+                <div class="quick-topic-buttons">
+
+                    <button
+                        type="button"
+                        onclick="setTopic('Python')"
+                    >
+                        Python
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="setTopic('HTML')"
+                    >
+                        HTML
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="setTopic('CSS')"
+                    >
+                        CSS
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="setTopic('JavaScript')"
+                    >
+                        JavaScript
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="setTopic('Database')"
+                    >
+                        Database
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="setTopic('Flask')"
+                    >
+                        Flask
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RESULT PANEL ================= -->
+
+        <section class="panel result-panel">
+
+            <h2>
+                💡 Explanation
+            </h2>
+
+
+            {% if explanation %}
+
+                <div class="result-text preline">
+
+                    {{ explanation }}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        💡
+                    </div>
+
+                    <p>
+                        Your explanation will appear here.
+                    </p>
+
+                    <small>
+                        Enter a topic and click
+                        "Explain Topic".
+                    </small>
+
+                </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function setTopic(topic) {
+
+    const topicInput =
+        document.getElementById("topic");
+
+    if (topicInput) {
+
+        topicInput.value = topic;
+
+        topicInput.focus();
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI MCQ Generator</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🤖 AI Study Companion
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="mcq-container">
+
+    <h1>📝 AI MCQ Generator</h1>
+
+    <p class="page-description">
+        Enter a topic and test your knowledge.
+    </p>
+
+
+    <!-- ================= TOPIC FORM ================= -->
+
+    <form method="POST"
+          class="mcq-form">
+
+        <input
+            type="text"
+            name="topic"
+            placeholder="Enter topic e.g. Python"
+            value="{{ topic or '' }}"
+            required
+        >
+
+        <button type="submit">
+            Generate MCQs
+        </button>
+
+    </form>
+
+
+    <!-- ================= QUESTIONS ================= -->
+
+    {% if questions %}
+
+    <form id="quizForm">
+
+        {% for q in questions %}
+
+        <!-- Save outer question number -->
+        {% set question_number = loop.index %}
+
+        <div class="mcq-card">
+
+            <h2>
+                Question {{ question_number }}
+            </h2>
+
+
+            <p class="question">
+                {{ q.question }}
+            </p>
+
+
+            <!-- OPTIONS -->
+
+            <div class="options">
+
+                {% for option in q.options %}
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="question{{ question_number }}"
+                        value="{{ option }}"
+                        data-correct="{{ q.answer }}"
+                    >
+
+                    <span>
+                        {{ option }}
+                    </span>
+
+                </label>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- ================= SUBMIT ================= -->
+
+        <button
+            type="button"
+            class="submit-quiz-btn"
+            onclick="checkMCQ()">
+
+            Submit Quiz
+
+        </button>
+
+    </form>
+
+
+    <!-- ================= RESULT ================= -->
+
+    <div
+        id="resultBox"
+        class="result-box">
+
+        <h2>
+            🎉 Quiz Result
+        </h2>
+
+        <p id="scoreText"></p>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function checkMCQ() {
+
+    const questions =
+        document.querySelectorAll(".mcq-card");
+
+
+    let score = 0;
+
+    let attempted = 0;
+
+
+    questions.forEach(function(card) {
+
+        const selected =
+            card.querySelector(
+                'input[type="radio"]:checked'
+            );
+
+
+        const options =
+            card.querySelectorAll(".option");
+
+
+        // Remove previous result classes
+
+        options.forEach(function(option) {
+
+            option.classList.remove(
+                "correct-option",
+                "wrong-option"
+            );
+
+        });
+
+
+        // If user selected an answer
+
+        if (selected) {
+
+            attempted++;
+
+
+            const correctAnswer =
+                selected.getAttribute(
+                    "data-correct"
+                );
+
+
+            const selectedAnswer =
+                selected.value;
+
+
+            // CORRECT
+
+            if (
+                selectedAnswer ===
+                correctAnswer
+            ) {
+
+                score++;
+
+
+                selected
+                    .closest(".option")
+                    .classList.add(
+                        "correct-option"
+                    );
+
+            }
+
+
+            // WRONG
+
+            else {
+
+                selected
+                    .closest(".option")
+                    .classList.add(
+                        "wrong-option"
+                    );
+
+
+                // Highlight correct answer
+
+                options.forEach(
+                    function(option) {
+
+                        const input =
+                            option.querySelector(
+                                "input"
+                            );
+
+
+                        if (
+                            input.value ===
+                            correctAnswer
+                        ) {
+
+                            option.classList.add(
+                                "correct-option"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+        }
+
+    });
+
+
+    const total =
+        questions.length;
+
+
+    const resultBox =
+        document.getElementById(
+            "resultBox"
+        );
+
+
+    const scoreText =
+        document.getElementById(
+            "scoreText"
+        );
+
+
+    resultBox.style.display =
+        "block";
+
+
+    scoreText.innerHTML =
+
+        `
+        Your Score:
+        <strong>${score}</strong>
+        / ${total}
+
+        <br><br>
+
+        Attempted:
+        <strong>${attempted}</strong>
+        / ${total}
+        `;
+
+
+    // Scroll to result
+
+    resultBox.scrollIntoView({
+
+        behavior: "smooth"
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
